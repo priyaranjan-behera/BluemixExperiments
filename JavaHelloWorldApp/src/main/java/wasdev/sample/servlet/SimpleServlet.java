@@ -16,7 +16,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Sentiment;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
  * Servlet implementation class SimpleServlet
@@ -38,7 +37,7 @@ public class SimpleServlet extends HttpServlet {
     	params.put(service.URL, url);
     	params.put(service.SENTIMENT, 1);
     	params.put(service.KNOWLEDGE_GRAPH, 1);
-    	Keywords result =  service.getKeywords(params).execute();
+    	Keywords result =  service.getKeywords(params);
     	
     	List<Keyword> keywords = result.getKeywords();
     	
@@ -50,13 +49,11 @@ public class SimpleServlet extends HttpServlet {
     	"<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>\n" +
     	"<link rel='stylesheet' href='style.css' />\n" +
     	"</head>\n" + 
-                "  <li><b>URL:</b>: "
-                + url + "\n" +
-                "  <li><b>Result:</b>: ");
+                "  <b>URL:</b>: "
+                + url + "\n" );
     	
-    	sb.append("The test that has been processed is: " + result.getText() + "\n");
     	
-    	sb.append(	"<table style='width:100%'>\n"
+    	sb.append(	"<table><caption><b>Analysis Result</b></caption>"
 				+	"<tr> <th>Keyword</th> \n <th>Sentiment</th>  </tr>\n");
     	for(Keyword k:keywords)
     	{
